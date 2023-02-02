@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吃烂头</title>
+    <style>
+        table {
+            background-image: url('images/beijing.jpg');
+            width: 960px;
+			height: 540px;
+            position: relative;
+            left: 50%;
+            top: 10px;
+            transform: translate(-50%, 0);
+        }
+        
+        table>caption {
+            font-family: '微软雅黑';
+            font-size: 40px;
+        }
+        
+        table>td {
+            width: 50px;
+            height: 25px;
+        }
+        
+        img {
+            margin-top: 30px;
+			width: 50px;
+			height: 50px;
+        }
+        
+        body {
+            cursor: url('images/Marker.png'), -moz-cell;
+        }
+        
+        .sorce {
+            width: 500px;
+            height: 100px;
+            background-color: rgba(66,66,66,1.00);
+			color: aliceblue;
+			border-radius: 20px;
+			box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+             0 0  0 4px rgb(230,195,92),
+             0.3em 0.3em 1em rgba(0,0,0,0.3);
+            /* float: left; */
+            text-align: center;
+            line-height: 40px;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        
+        .d1 {
+            position: relative;
+			text-align: center;
+        }
+		
+		.zy{
+			width: 10px;
+			height: 10px;
+		}
+		
+		.progress-bar {
+ 		   width: 50%;
+ 		   height: 10px;
+ 		   background-color: #ddd;
+ 		   border-radius: 5px;
+  		   margin: 30px auto;
+  		   position: relative;
+		}
+
+		.progress {
+ 		    background-color: #D5A630;
+ 		    width: 0%;
+ 		    height: 100%;
+ 		    border-radius: 5px;
+ 		    transition: width 0.2s ease-in;
+ 		    position: absolute;
+  	   		top: 0;
+ 		    left: 0;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="d1">
+        <!-- 定义一个div标签用来存放分数 -->
+        <div class="sorce">
+            <p id="zong">战意：0</p>
+			<div class="progress-bar">LB
+  			<div class="progress"></div>
+			</div>
+        </div>
+        <!-- 定义一个表格，存放坑位 -->
+        <table id="box">
+            <caption>吃烂头</caption>
+            <tr id="t">
+                <td><img src="images/keng.png" alt="keng"></td>
+                <td><img src="images/keng.png" alt="keng"></td>
+                <td><img src="images/keng.png" alt="keng"></td>
+
+            </tr>
+            <tr>
+                <td><img src="images/keng.png" alt="keng"></td>
+                <td><img src="images/keng.png" alt="keng"></td>
+                <td><img src="images/keng.png" alt="keng"></td>
+
+            </tr>
+            <tr>
+                <td><img src="images/keng.png" alt="keng"></td>
+                <td><img src="images/keng.png" alt="keng"></td>
+                <td><img src="images/keng.png" alt="keng"></td>
+
+            </tr>
+        </table>
+				<p></p>
+    </div>
+    <script>
+        //获取数据
+        var dishus = document.getElementsByTagName('img');
+        var nums = 0;
+        var sum = 0;
+        var box = document.getElementById('box');
+        var t = document.getElementById('t');
+        var res = document.getElementsByTagName('tr');
+		var zhanyi = sum;
+        // alert(dishus.length);
+		if (sum == 0) {
+            setTimeout(showin2, 1000);
+
+        }
+        if (sum == 10) {
+            setTimeout(showin2, 1000);
+
+        }
+        //地鼠显示方法  
+        function showin() {
+            nums = Math.floor(Math.random() * dishus.length);
+            dishus[nums].src = 'images/long.png';
+            dishus[nums].style.marginTop = 'auto';
+            dishus[nums].setAttribute("onclick", "beat()","showin2()")
+            setTimeout(hideof, Math.random() * 500 + 1000);
+
+        }
+		
+		    function showin2() {
+            nums = Math.floor(Math.random() * dishus.length);
+            dishus[nums].src = 'images/wushi.png';
+            dishus[nums].style.marginTop = 'auto';
+            dishus[nums].setAttribute("onclick", "dead()")
+            setTimeout(hideof, Math.random() * 500 + 1000);
+
+        }
+
+
+
+        //地鼠隐藏方法  
+
+        function hideof() {
+            dishus[nums].src = 'images/keng.png';
+            dishus[nums].removeAttribute("onclick");
+            dishus[nums].style.marginTop = '30px';
+            setTimeout(showin, Math.random() * 500 + 1000);
+
+        }
+
+
+
+        //击打地鼠方法  
+
+        function beat() {
+            dishus[nums].src = 'images/shang.png';
+            sum += 2;
+            dishus[nums].style.marginTop = '0px';
+
+            document.getElementById('zong').innerHTML = '战意：' + sum;
+
+        }
+		
+	
+		//战意条
+		
+		
+		//LB条
+		var progressBar2 = document.querySelector(".progress-bar .progress");
+		var width = 1;
+		var interval = setInterval(frame, 1000);
+
+		function frame() {
+  			if (width >= 100) {
+				clearInterval(interval);
+			} else {
+				width++;
+				progressBar2.style.width = width + "%";
+			}
+		}
+		
+		
+		//踩到
+		function dead() {
+			clearInterval();
+			clearTimeout();
+			var zhantie = document.createElement("img");
+			zhantie.src = "images/zhantie.png";
+			zhantie.id = "zhantie";
+			zhantie.style.display = "block";
+			zhantie.style.margin = "0 auto";
+			zhantie.style.width = "50%";
+			
+			document.body.appendChild(zhantie);
+			setTimeout(function () {
+				zhantie.style.width = "100%";
+				zhantie.style.height = "100%";
+				alert("你踩到侍了！");
+			}, 30);
+		}
+
+    </script>
+</body>
+
+</html>
